@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ma Bibliothèque Complète</title>
+    <style>
+    </style>
+    <script>
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Système de Gestion de Bibliothèques</h1>
+        <p class="subtitle">Gestion complète avec 2 bibliothèques</p>
+
+        <div id="message" class="message"></div>
+
+        <!-- Sélecteur de Bibliothèque -->
+        <div class="biblio-selector">
+            <div class="biblio-card selected" onclick="selectionnerBiblio(1)">
+                <h3>🏛️ Bibliothèque Centrale</h3>
+                <p>Marseille (B001)</p>
+                <p style="margin-top: 5px;"><strong id="livres-b1">5</strong> livres</p>
+            </div>
+            <div class="biblio-card" onclick="selectionnerBiblio(2)">
+                <h3>🏛️ Bibliothèque Nord</h3>
+                <p>Aix-en-Provence (B002)</p>
+                <p style="margin-top: 5px;"><strong id="livres-b2">0</strong> livres</p>
+            </div>
+        </div>
+
+        <!-- Menu Principal -->
+        <div id="menu-principal" class="section active">
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalLivres">5</div>
+                    <div class="stat-label">Total Livres</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="livresLibres">5</div>
+                    <div class="stat-label">Disponibles</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="livresEmpruntes">0</div>
+                    <div class="stat-label">Empruntés</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="livresPretes">0</div>
+                    <div class="stat-label">Prêtés</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalAdherents">1</div>
+                    <div class="stat-label">Adhérents</div>
+                </div>
+            </div>
+
+            <div class="menu">
+                <button class="menu-btn" onclick="montrerSection('voir-livres')">
+                    📖 Voir les Livres
+                </button>
+                <button class="menu-btn" onclick="montrerSection('ajouter')">
+                    ➕ Ajouter Livre
+                </button>
+                <button class="menu-btn" onclick="montrerSection('emprunter')">
+                    📤 Emprunter
+                </button>
+                <button class="menu-btn" onclick="montrerSection('rendre')">
+                    📥 Rendre
+                </button>
+                <button class="menu-btn" onclick="montrerSection('preter')">
+                    🔄 Prêter B1→B2
+                </button>
+                <button class="menu-btn" onclick="montrerSection('demander')">
+                    📞 Demander ISBN
+                </button>
+                <button class="menu-btn" onclick="montrerSection('adherents')">
+                    👥 Adhérents
+                </button>
+                <button class="menu-btn" onclick="montrerSection('supprimer')">
+                    🗑️ Supprimer
+                </button>
+                <button class="menu-btn" onclick="retournerLivresPretes()">
+                    ↩️ Retour Prêts
+                </button>
+            </div>
+        </div>
+
+        <!-- Voir les Livres -->
+        <div id="voir-livres" class="section">
+            <h2 class="section-title">📖 Catalogue des Livres</h2>
+            
+            <div class="tabs">
+                <button class="tab-btn active" onclick="afficherParType('tous')">Tous</button>
+                <button class="tab-btn" onclick="afficherParType('Roman')">Romans</button>
+                <button class="tab-btn" onclick="afficherParType('BD')">BD</button>
+                <button class="tab-btn" onclick="afficherParType('Poésie')">Poésie</button>
+                <button class="tab-btn" onclick="afficherParType('Théâtre')">Théâtre</button>
+                <button class="tab-btn" onclick="afficherParType('Album')">Albums</button>
+            </div>
+
+            <div id="liste-livres" class="livre-grid"></div>
+            <button class="btn btn-back" onclick="montrerSection('menu-principal')">← Retour</button>
+        </div>
+
+        <!-- Ajouter un Livre -->
+        <div id="ajouter" class="section">
+            <h2 class="section-title">➕ Ajouter un Nouveau Livre</h2>
+            <div class="form-box">
+                <form onsubmit="ajouterLivre(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Code :</label>
+                            <input type="text" id="code" required placeholder="Ex: R001">
+                        </div>
+                        <div class="form-group">
+                            <label>ISBN :</label>
+                            <input type="text" id="isbn" required placeholder="Ex: ISBN-111">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Titre :</label>
+                        <input type="text" id="titre" required placeholder="Titre du livre">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Auteur :</label>
+                            <input type="text" id="auteur" required placeholder="Nom de l'auteur">
+                        </div>
+                        <div class="form-group">
+                            <label>Éditeur :</label>
+                            <input type="text" id="editeur" required placeholder="Nom de l'éditeur">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Type :</label>
+                            <select id="type" required onchange="updateFormFields()">
+                                <option value="Roman">Roman</option>
+                                <option value="BD">Bande Dessinée</option>
+                                <option value="Poésie">Recueil de Poésie</option>
+                                <option value="Théâtre">Pièce de Théâtre</option>
+                                <option value="Album">Album</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Public Cible :</label>
+                            <select id="publicCible" required>
+                                <option value="Adulte">Adulte</option>
+                                <option value="Ados">Adolescent</option>
+                                <option value="Jeunesse">Jeunesse</option>
+                                <option value="Tout public">Tout Public</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="specificFields"></div>
+
+                    <button type="submit" class="btn">Ajouter</button>
+                    <button type="button" class="btn btn-back" onclick="montrerSection('menu-principal')">Annuler</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Emprunter -->
+        <div id="emprunter" class="section">
+            <h2 class="section-title">📤 Emprunter un Livre</h2>
+            <div class="form-box">
+                <form onsubmit="emprunterLivre(event)">
+                    <div class="form-group">
+                        <label>Numéro Adhérent :</label>
+                        <input type="text" id="numAdherentEmp" required placeholder="Ex: A001">
+                    </div>
+                    <div class="form-group">
+                        <label>Code Livre :</label>
+                        <input type="text" id="codeLivreEmp" required placeholder="Ex: R001">
+                    </div>
+                    <button type="submit" class="btn">Emprunter</button>
+                    <button type="button" class="btn btn-back" onclick="montrerSection('menu-principal')">Annuler</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Rendre -->
+        <div id="rendre" class="section">
+            <h2 class="section-title">📥 Rendre un Livre</h2>
+            <div class="form-box">
+                <form onsubmit="rendreLivre(event)">
+                    <div class="form-group">
+                        <label>Numéro Adhérent :</label>
+                        <input type="text" id="numAdherentRen" required placeholder="Ex: A001">
+                    </div>
+                    <div class="form-group">
+                        <label>Code Livre :</label>
+                        <input type="text" id="codeLivreRen" required placeholder="Ex: R001">
+                    </div>
+                    <button type="submit" class="btn">Rendre</button>
+                    <button type="button" class="btn btn-back" onclick="montrerSection('menu-principal')">Annuler</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Prêter -->
+        <div id="preter" class="section">
+            <h2 class="section-title">🔄 Prêter un Livre (B1 → B2)</h2>
+            <div class="form-box">
+                <p style="margin-bottom: 15px; color: #7f8c8d;">
+                    Transférer un livre libre de la Bibliothèque Centrale vers la Bibliothèque Nord
+                </p>
+                <form onsubmit="preterLivre(event)">
+                    <div class="form-group">
+                        <label>Code Livre (dans B1) :</label>
+                        <input type="text" id="codeLivrePret" required placeholder="Ex: T001">
+                    </div>
+                    <button type="submit" class="btn">Prêter à B2</button>
+                    <button type="button" class="btn btn-back" onclick="montrerSection('menu-principal')">Annuler</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Demander par ISBN -->
+        <div id="demander" class="section">
+            <h2 class="section-title">📞 Demander un Livre par ISBN</h2>
+            <div class="form-box">
+                <p style="margin-bottom: 15px; color: #7f8c8d;">
+                    B2 demande un livre à B1 en utilisant son ISBN
+                </p>
+                <form onsubmit="demanderLivre(event)">
+                    <div class="form-group">
+                        <label>ISBN du Livre :</label>
+                        <input type="text" id="isbnDemande" required placeholder="Ex: ISBN-555">
+                    </div>
+                    <button type="submit" class="btn">Demander à B1</button>
+                    <button type="button" class="btn btn-back" onclick="montrerSection('menu-principal')">Annuler</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Adhérents -->
+        <div id="adherents" class="section">
+            <h2 class="section-title">👥 Gestion des Adhérents</h2>
+            
+            <div class="form-box" style="margin-bottom: 20px;">
+                <h3 style="margin-bottom: 15px;">➕ Inscrire un Nouvel Adhérent</h3>
+                <form onsubmit="inscrireAdherent(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Numéro :</label>
+                            <input type="text" id="numAdh" required placeholder="Ex: A002">
+                        </div>
+                        <div class="form-group">
+                            <label>Nom :</label>
+                            <input type="text" id="nomAdh" required placeholder="Nom">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Prénom :</label>
+                            <input type="text" id="prenomAdh" required placeholder="Prénom">
+                        </div>
+                        <div class="form-group">
+                            <label>Adresse :</label>
+                            <input type="text" id="adresseAdh" required placeholder="Ville">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Nombre de livres autorisés :</label>
+                        <input type="number" id="nbLivresAdh" required value="2" min="1" max="10">
+                    </div>
+                    <button type="submit" class="btn">Inscrire</button>
+                </form>
+            </div>
+
+            <h3 style="margin-top: 30px; margin-bottom: 15px;">Liste des Adhérents (B1)</h3>
+            <table id="tableAdherents">
+                <thead>
+                    <tr>
+                        <th>Numéro</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Ville</th>
+                        <th>Limite</th>
+                        <th>Empruntés</th>
+                    </tr>
+                </thead>
+                <tbody id="listeAdherents"></tbody>
+            </table>
+
+            <button class="btn btn-back" style="margin-top: 20px;" onclick="montrerSection('menu-principal')">← Retour</button>
+        </div>
+
+        <!-- Supprimer -->
+        <div id="supprimer" class="section">
+            <h2 class="section-title">🗑️ Supprimer un Livre</h2>
+            <div class="form-box">
+                <form onsubmit="supprimerLivre(event)">
+                    <div class="form-group">
+                        <label>Code Livre :</label>
+                        <input type="text" id="codeLivreSupp" required placeholder="Ex: P001">
+                    </div>
+                    <div class="form-group">
+                        <label>Motif :</label>
+                        <select id="motifSupp" required>
+                            <option value="Perdu">Perdu</option>
+                            <option value="Pilon">Pilon (mise au rebut)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                    <button type="button" class="btn btn-back" onclick="montrerSection('menu-principal')">Annuler</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

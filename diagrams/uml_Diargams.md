@@ -153,8 +153,6 @@ class GenreRoman {
 Bibliotheque "1" -- "0..*" Livre : contient
 Adherent "0..*" -- "1" Bibliotheque : inscrit
 
-
-
 Livre "0..*" -- "0..1" Adherent : emprunt
 
 
