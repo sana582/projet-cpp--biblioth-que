@@ -1,6 +1,5 @@
 #ifndef LIVRE_H
 #define LIVRE_H
-
 #include <string>
 #include <ostream>
 #include "Enums.h"
@@ -57,6 +56,7 @@ public:
     void setEtat(EtatLivre e);
    
     // Affichage du livre
+    // Chaque classe dérivée,doit définir sa propre façon d’afficher ses informations.
     virtual void afficher(std::ostream& os) const = 0;
 
     friend std::ostream& operator<<(std::ostream& os, const Livre& l);

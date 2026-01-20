@@ -6,9 +6,6 @@
 #include <string>
 #include <ostream>
 
-/**
- * @brief Roman = Livre avec un genre.
- */
 class Roman : public Livre {
 private:
     GenreRoman genre_;

@@ -21,7 +21,7 @@ int PieceTheatre::getSiecle() const {
     return siecle_;
 }
 
-// Méthode pour afficher les informations de la pièce sur un flux de sortie
+//afficher les informations de la pièce 
 void PieceTheatre::afficher(std::ostream& os) const {
     os << "[Theatre] "
        << "code=" << code_           

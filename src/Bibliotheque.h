@@ -10,7 +10,6 @@ class Livre;
 class Adherent;
 
 //Représente une bibliothèque :nom, adresse, code, ses livres,ses adhérents.
-//Gère les opérations métier : emprunter,rendre, prêter, demander par ISBN...
 
 class Bibliotheque {
 private:
@@ -26,18 +25,18 @@ public:
                  const std::string& adresse,
                  const std::string& code);
 
-    // Infos
+    // geters
     const std::string& getNom() const;
     const std::string& getAdresse() const;
     const std::string& getCode() const;
 
     // Adhérents
     void inscrire(Adherent* a);
-    bool desinscrire(const std::string& numAdh);
+
     Adherent* trouverAdherent(const std::string& numAdh) const;
 
     // Livres
-    void ajouterLivre(Livre* l);
+
     void acheterLivre(Livre* l); 
     bool retirerLivre(Livre* l);
 
@@ -59,7 +58,7 @@ public:
     // Suppression
     bool supprimerLivreParCode(const std::string& codeLivre, MotifSuppression motif);
 
-    // Rendre les livres prêtés qui ne sont pas empruntés
+    // Rendre le nombre des livres prêtés qui ne sont pas empruntés
     int rendreLivresPretesNonEmpruntes();
 
     // Accès listes 

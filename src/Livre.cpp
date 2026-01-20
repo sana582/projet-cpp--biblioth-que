@@ -59,7 +59,7 @@ void Livre::setEtat(EtatLivre e) {
     etat_ = e;
 }
 
-// Surcharge de l'opérateur << pour afficher un livre
+//l'opérateur << pour afficher un livre
 std::ostream& operator<<(std::ostream& os, const Livre& l) {
     l.afficher(os);
     return os;

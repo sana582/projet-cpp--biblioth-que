@@ -36,7 +36,7 @@ int Adherent::getNbLivresEmpruntes() const { return static_cast<int>(livresEmpru
 Bibliotheque* Adherent::getBibliothequeInscription() const { return bibliothequeInscription_; }
 void Adherent::setBibliothequeInscription(Bibliotheque* b) { bibliothequeInscription_ = b; }
 
-//Règles
+//limite
 bool Adherent::aAtteintLimite() const {
     return getNbLivresEmpruntes() >= nbLivresAutorise_;
 }
@@ -50,17 +50,15 @@ bool Adherent::ajouterEmprunt(Livre* l) {
     if (l == nullptr) return false;       // pas de livre
     if (aAtteintLimite()) return false;   // limite atteinte
     if (aEmprunte(l)) return false;       // déjà emprunté
-
-    livresEmpruntes_.push_back(l);        // ajoute le livre
+    livresEmpruntes_.push_back(l);        // ajoute le livre a la fin de la liste
     return true;
 }
 
 bool Adherent::retirerEmprunt(Livre* l) {
     if (l == nullptr) return false;
 
-    auto it = std::find(livresEmpruntes_.begin(), livresEmpruntes_.end(), l);
+    auto it = std::find(livresEmpruntes_.begin(), livresEmpruntes_.end(), l); //std::list<livre*>::iterator = auto 
     if (it == livresEmpruntes_.end()) return false; // livre pas trouvé
-
     livresEmpruntes_.erase(it);           // supprime le livre
     return true;
 }
