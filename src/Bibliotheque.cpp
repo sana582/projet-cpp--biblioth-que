@@ -86,7 +86,7 @@ void Bibliotheque::ajouterLivre(Livre* l) {
     l->setProprietaire(this);
 }
 
-// Acheter un livre (même chose que ajouter)
+// Acheter un livre 
 void Bibliotheque::acheterLivre(Livre* l) {
     ajouterLivre(l);
 }
@@ -165,7 +165,7 @@ bool Bibliotheque::rendreLivre(const std::string& numAdh, const std::string& cod
     Livre* l = trouverLivreParCode(codeLivre);
     if (l == nullptr) return false;
 
-    // Le livre doit être emprunté par cet adhérent
+    // Le livre doit être emprunté par cet adhérent0
     if (l->getEtat() != EtatLivre::Emprunte) return false;
     if (l->getEmprunteurActuel() != a) return false;
 
