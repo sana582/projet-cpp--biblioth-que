@@ -9,13 +9,11 @@ class Bibliotheque {
   - livres : List~Livre*~
   - adherents : List~Adherent*~
   + inscrire(a:Adherent*) void
-  + desinscrire(numAdh:string) bool
 
   + afficherLivres(os:ostream) void
   + afficherLivresParCategorie(os:ostream) void
 
   + acheterLivre(l:Livre*) void
-  + ajouterLivre(l:Livre*) void
   + trouverLivreParCode(code:string) Livre*
   + trouverLivreParISBN(isbn:string) Livre*
 
