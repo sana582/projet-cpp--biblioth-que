@@ -3,28 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ma Bibliothèque Complète</title>
+    <title>Système de Gestion de Bibliothèques</title>
     <link rel="stylesheet" href="css/style.css">
-
 </head>
 <body>
-    <script src="scripts/script.js"></script>
-
     <div class="container">
         <h1>Système de Gestion de Bibliothèques</h1>
-        <p class="subtitle">Gestion complète avec 2 bibliothèques</p>
+        <p class="subtitle">Gestion complète avec stockage dans fichiers JSON</p>
+
+        <div class="storage-controls">
+            <button class="storage-btn" onclick="sauvegarderDonnees()"> Sauvegarder</button>
+            <button class="storage-btn export" onclick="exporterJSON()"> Exporter JSON</button>
+            <button class="storage-btn import" onclick="document.getElementById('fileInput').click()">Importer JSON</button>
+            <input type="file" id="fileInput" class="file-input" accept=".json" onchange="importerJSON(event)">
+        </div>
 
         <div id="message" class="message"></div>
 
         <!-- Sélecteur de Bibliothèque -->
         <div class="biblio-selector">
             <div class="biblio-card selected" onclick="selectionnerBiblio(1)">
-                <h3>🏛️ Bibliothèque Centrale</h3>
+                <h3> Bibliothèque Centrale</h3>
                 <p>Marseille (B001)</p>
                 <p style="margin-top: 5px;"><strong id="livres-b1">5</strong> livres</p>
             </div>
             <div class="biblio-card" onclick="selectionnerBiblio(2)">
-                <h3>🏛️ Bibliothèque Nord</h3>
+                <h3> Bibliothèque Nord</h3>
                 <p>Aix-en-Provence (B002)</p>
                 <p style="margin-top: 5px;"><strong id="livres-b2">0</strong> livres</p>
             </div>
@@ -56,39 +60,21 @@
             </div>
 
             <div class="menu">
-                <button class="menu-btn" onclick="montrerSection('voir-livres')">
-                    📖 Voir les Livres
-                </button>
-                <button class="menu-btn" onclick="montrerSection('ajouter')">
-                    ➕ Ajouter Livre
-                </button>
-                <button class="menu-btn" onclick="montrerSection('emprunter')">
-                    📤 Emprunter
-                </button>
-                <button class="menu-btn" onclick="montrerSection('rendre')">
-                    📥 Rendre
-                </button>
-                <button class="menu-btn" onclick="montrerSection('preter')">
-                    🔄 Prêter B1→B2
-                </button>
-                <button class="menu-btn" onclick="montrerSection('demander')">
-                    📞 Demander ISBN
-                </button>
-                <button class="menu-btn" onclick="montrerSection('adherents')">
-                    👥 Adhérents
-                </button>
-                <button class="menu-btn" onclick="montrerSection('supprimer')">
-                    🗑️ Supprimer
-                </button>
-                <button class="menu-btn" onclick="retournerLivresPretes()">
-                    ↩️ Retour Prêts
-                </button>
+                <button class="menu-btn" onclick="montrerSection('voir-livres')"> Voir les Livres</button>
+                <button class="menu-btn" onclick="montrerSection('ajouter')">Ajouter Livre</button>
+                <button class="menu-btn" onclick="montrerSection('emprunter')"> Emprunter</button>
+                <button class="menu-btn" onclick="montrerSection('rendre')"> Rendre</button>
+                <button class="menu-btn" onclick="montrerSection('preter')"> Prêter B1→B2</button>
+                <button class="menu-btn" onclick="montrerSection('demander')"> Demander ISBN</button>
+                <button class="menu-btn" onclick="montrerSection('adherents')"> Adhérents</button>
+                <button class="menu-btn" onclick="montrerSection('supprimer')"> Supprimer</button>
+                <button class="menu-btn" onclick="retournerLivresPretes()"> Retour Prêts</button>
             </div>
         </div>
 
         <!-- Voir les Livres -->
         <div id="voir-livres" class="section">
-            <h2 class="section-title">📖 Catalogue des Livres</h2>
+            <h2 class="section-title"> Catalogue des Livres</h2>
             
             <div class="tabs">
                 <button class="tab-btn active" onclick="afficherParType('tous')">Tous</button>
@@ -105,7 +91,7 @@
 
         <!-- Ajouter un Livre -->
         <div id="ajouter" class="section">
-            <h2 class="section-title">➕ Ajouter un Nouveau Livre</h2>
+            <h2 class="section-title"> Ajouter un Nouveau Livre</h2>
             <div class="form-box">
                 <form onsubmit="ajouterLivre(event)">
                     <div class="form-row">
@@ -167,7 +153,7 @@
 
         <!-- Emprunter -->
         <div id="emprunter" class="section">
-            <h2 class="section-title">📤 Emprunter un Livre</h2>
+            <h2 class="section-title"> Emprunter un Livre</h2>
             <div class="form-box">
                 <form onsubmit="emprunterLivre(event)">
                     <div class="form-group">
@@ -186,7 +172,7 @@
 
         <!-- Rendre -->
         <div id="rendre" class="section">
-            <h2 class="section-title">📥 Rendre un Livre</h2>
+            <h2 class="section-title"> Rendre un Livre</h2>
             <div class="form-box">
                 <form onsubmit="rendreLivre(event)">
                     <div class="form-group">
@@ -205,7 +191,7 @@
 
         <!-- Prêter -->
         <div id="preter" class="section">
-            <h2 class="section-title">🔄 Prêter un Livre (B1 → B2)</h2>
+            <h2 class="section-title"> Prêter un Livre (B1 → B2)</h2>
             <div class="form-box">
                 <p style="margin-bottom: 15px; color: #7f8c8d;">
                     Transférer un livre libre de la Bibliothèque Centrale vers la Bibliothèque Nord
@@ -223,7 +209,7 @@
 
         <!-- Demander par ISBN -->
         <div id="demander" class="section">
-            <h2 class="section-title">📞 Demander un Livre par ISBN</h2>
+            <h2 class="section-title"> Demander un Livre par ISBN</h2>
             <div class="form-box">
                 <p style="margin-bottom: 15px; color: #7f8c8d;">
                     B2 demande un livre à B1 en utilisant son ISBN
@@ -241,10 +227,10 @@
 
         <!-- Adhérents -->
         <div id="adherents" class="section">
-            <h2 class="section-title">👥 Gestion des Adhérents</h2>
+            <h2 class="section-title"> Gestion des Adhérents</h2>
             
             <div class="form-box" style="margin-bottom: 20px;">
-                <h3 style="margin-bottom: 15px;">➕ Inscrire un Nouvel Adhérent</h3>
+                <h3 style="margin-bottom: 15px;"> Inscrire un Nouvel Adhérent</h3>
                 <form onsubmit="inscrireAdherent(event)">
                     <div class="form-row">
                         <div class="form-group">
@@ -294,7 +280,7 @@
 
         <!-- Supprimer -->
         <div id="supprimer" class="section">
-            <h2 class="section-title">🗑️ Supprimer un Livre</h2>
+            <h2 class="section-title"> Supprimer un Livre</h2>
             <div class="form-box">
                 <form onsubmit="supprimerLivre(event)">
                     <div class="form-group">
@@ -315,6 +301,8 @@
         </div>
     </div>
 
-
+    <script src="scripts/data.js"></script>
+    <script src="scripts/script.js"></script>
+    <script src="scripts/ui.js"></script>
 </body>
 </html>

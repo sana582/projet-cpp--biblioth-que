@@ -1,0 +1,65 @@
+{
+  "1": {
+    "nom": "Bibliothèque Centrale",
+    "ville": "Marseille",
+    "code": "B001",
+    "livres": [
+      {
+        "code": "R001",
+        "type": "Roman",
+        "titre": "Les Misérables",
+        "auteur": "Victor Hugo",
+        "editeur": "Editeur1",
+        "isbn": "ISBN-111",
+        "public": "Adulte",
+        "etat": "Libre",
+        "genre": "Littérature",
+        "emprunteur": null,
+        "proprietaire": 1
+      },
+      {
+        "code": "BD01",
+        "type": "BD",
+        "titre": "Astérix",
+        "auteur": "Goscinny",
+        "editeur": "Editeur2",
+        "isbn": "ISBN-222",
+        "public": "Tout public",
+        "etat": "Libre",
+        "dessinateur": "Uderzo",
+        "emprunteur": null,
+        "proprietaire": 1
+      },
+      {
+        "code": "P001",
+        "type": "Poésie",
+        "titre": "Les Fleurs du Mal",
+        "auteur": "Baudelaire",
+        "editeur": "Editeur3",
+        "isbn": "ISBN-333",
+        "public": "Adulte",
+        "etat": "Libre",
+        "typePoesie": "Vers",
+        "emprunteur": null,
+        "proprietaire": 1
+      }
+    ],
+    "adherents": [
+      {
+        "numero": "A001",
+        "nom": "Naimi",
+        "prenom": "Salima",
+        "adresse": "Marseille",
+        "nbLivresAutorise": 2,
+        "livresEmpruntes": []
+      }
+    ]
+  },
+  "2": {
+    "nom": "Bibliothèque Nord",
+    "ville": "Aix-en-Provence",
+    "code": "B002",
+    "livres": [],
+    "adherents": []
+  }
+}
